@@ -1,6 +1,4 @@
-﻿
-
-using JobEntryy.Domain.Common;
+﻿using JobEntryy.Domain.Common;
 
 namespace JobEntryy.Domain.Entities
 {

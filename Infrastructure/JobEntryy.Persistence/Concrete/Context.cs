@@ -11,5 +11,9 @@ namespace JobEntryy.Persistence.Concrete
         }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Experience> Experiences { get; set; }
+        public DbSet<Industry> Industries { get; set; }
+        public DbSet<Package> Packages { get; set; }
     }
 }
