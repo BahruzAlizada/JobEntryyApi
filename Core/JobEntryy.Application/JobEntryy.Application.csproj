@@ -9,16 +9,34 @@
   <ItemGroup>
     <Folder Include="Abstracts\ServiceContracts\" />
     <Folder Include="Abstracts\Services\Dapper\" />
-    <Folder Include="Abstracts\Services\EntityFramework\" />
-    <Folder Include="Features\Commands\" />
     <Folder Include="Features\Queries\" />
     <Folder Include="Mappers\AutoMapper\" />
     <Folder Include="Mappers\Mapster\" />
     <Folder Include="DTOs\" />
     <Folder Include="Parametres\RequestParametres\" />
-    <Folder Include="Registration\" />
-    <Folder Include="Repositories\" />
-    <Folder Include="Validations\FluentValidation\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
+    <PackageReference Include="Mapster" Version="7.4.0" />
+    <PackageReference Include="Mapster.Core" Version="1.2.1" />
+    <PackageReference Include="MediatR" Version="11.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JobEntryy.Domain\JobEntryy.Domain.csproj" />
   </ItemGroup>
 
 </Project>
