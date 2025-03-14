@@ -9,9 +9,9 @@ namespace JobEntryy.Domain.Entities
     {
         public string Name { get; set; }
         public JobSalary Salary { get; set; }
-        public DateTime Deadline { get; set; } = DateTime.UtcNow.AddDays(30);
-        public int Seen { get; set; }
 
+        public DateTime Deadline { get; set; } = DateTime.UtcNow.AddDays(30);
+        public int Seen { get; set; } = 0;
 
         public bool IsPremium { get; set; } = false;
         public DateTime? PremiumDate { get; set; }
@@ -51,7 +51,6 @@ namespace JobEntryy.Domain.Entities
             IsPremium = false;
             PremiumDate = null;
         }
-
 
 
     }

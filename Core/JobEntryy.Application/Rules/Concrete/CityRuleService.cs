@@ -1,4 +1,5 @@
 ﻿using JobEntryy.Application.Abstracts.Services.EntityFramework;
+using JobEntryy.Application.Constants;
 using JobEntryy.Application.Parametres.ResponseParametres;
 using JobEntryy.Application.Rules.Abstract;
 
@@ -18,12 +19,12 @@ namespace JobEntryy.Application.Rules.Concrete
             if (id.HasValue)
             {
                 var cityExist = cityReadRepository.GetAll().Any(x => x.Name == name && x.Id != id);
-                if (cityExist) return Result.Create(false);
+                if (cityExist) return ErrorResult.Create(Messages.CheckIfNameExisted);
             }
             else
             {
                 var cityExist = cityReadRepository.GetAll().Any(x => x.Name == name);
-                if (cityExist) return Result.Create(false);
+                if (cityExist) return ErrorResult.Create(Messages.CheckIfNameExisted);
             }
 
             return Result.Create(true);

@@ -23,7 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\..\Infrastructure\JobEntryy.Infrastructure\JobEntryy.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\JobEntryy.Persistence\JobEntryy.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

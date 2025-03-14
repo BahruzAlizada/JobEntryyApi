@@ -9,6 +9,6 @@ namespace JobEntryy.Domain.Entities
 
         public string RequiredSkills { get; set; }
         public string Responsibilities { get; set; }
-        public string JobGraphics { get; set; }
+        public string? JobGraphics { get; set; }
     }
 }
