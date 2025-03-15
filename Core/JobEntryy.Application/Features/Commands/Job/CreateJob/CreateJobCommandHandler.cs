@@ -1,5 +1,6 @@
 ﻿using JobEntryy.Application.Abstracts.Services.EntityFramework;
 using JobEntryy.Application.Constants;
+using JobEntryy.Application.Extensions;
 using JobEntryy.Application.Parametres.ResponseParametres;
 using JobEntryy.Application.Rules;
 using JobEntryy.Application.Rules.Abstract;

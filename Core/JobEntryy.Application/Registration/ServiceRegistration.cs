@@ -12,6 +12,7 @@ namespace JobEntryy.Application.Registration
             services.AddScoped<ICityRuleService,CityRuleService>();
             services.AddScoped<IExperienceRuleService,ExperienceRuleService>();
             services.AddScoped<IIndustryRuleService,IndustryRuleService>();
+            services.AddScoped<IJobRuleService, JobRuleService>();
             services.AddScoped<IPackageRuleService,PackageRuleService>();
         }
     }

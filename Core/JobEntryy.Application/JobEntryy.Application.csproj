@@ -9,12 +9,11 @@
   <ItemGroup>
     <Folder Include="Abstracts\ServiceContracts\" />
     <Folder Include="Abstracts\Services\Dapper\" />
+    <Folder Include="Features\Commands\Job\UpdateJob\" />
     <Folder Include="Features\Queries\" />
     <Folder Include="Mappers\AutoMapper\" />
     <Folder Include="Mappers\Mapster\" />
     <Folder Include="DTOs\" />
-    <Folder Include="Exceptions\" />
-    <Folder Include="Extensions\" />
     <Folder Include="Parametres\RequestParametres\" />
   </ItemGroup>
 

@@ -11,5 +11,10 @@ namespace JobEntryy.Domain.Entities
         public Package Package { get; set; }
 
 
+        public DateTime PurchasedDate { get; set; } = DateTime.UtcNow.AddHours(4); // Alınma tarixi
+
+        public int RemainingPremiumJobCount { get; set; } 
+        public int UsedPremiumJobCount { get; set; }
+
     }
 }

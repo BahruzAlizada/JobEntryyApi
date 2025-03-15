@@ -1,18 +1,23 @@
 ﻿using JobEntryy.Application.Abstracts.Services.EntityFramework;
+using JobEntryy.Application.Exceptions;
 using JobEntryy.Application.Features.Commands.Job.CreateJob;
 using JobEntryy.Domain.Entities;
+using JobEntryy.Domain.Identity;
 using JobEntryy.Domain.ValueObjects;
 using JobEntryy.Persistence.Concrete;
 using JobEntryy.Persistence.Repositories;
+using Microsoft.AspNetCore.Identity;
 
 namespace JobEntryy.Persistence.Services.EntityFramework;
 
 public class JobWriteRepository : WriteRepository<Job>, IJobWriteRepository
 {
     private readonly Context context;
-    public JobWriteRepository(Context context) : base(context)
+    private readonly UserManager<AppUser> userManager;
+    public JobWriteRepository(Context context, UserManager<AppUser> userManager) : base(context)
     {
         this.context = context;
+        this.userManager = userManager;
     }
 
 
@@ -21,6 +26,8 @@ public class JobWriteRepository : WriteRepository<Job>, IJobWriteRepository
         await using var transaction = await context.Database.BeginTransactionAsync();
         try
         {
+            AppUser? user = await userManager.FindByIdAsync(request.UserId.ToString()) ?? throw new UserNotFoundException();
+            
             Job job = new Job
             {
                 Name = request.Name,
@@ -54,6 +61,9 @@ public class JobWriteRepository : WriteRepository<Job>, IJobWriteRepository
                 Link = request.Link,
             };
             await context.JobApplicationInfos.AddAsync(jobApplicationInfo);
+
+            user.IncreaseJobCount();
+            await userManager.UpdateAsync(user);
 
             await context.SaveChangesAsync();
             await transaction.CommitAsync();
