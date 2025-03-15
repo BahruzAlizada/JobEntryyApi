@@ -1,4 +1,6 @@
-﻿using JobEntryy.Application.Abstracts.Services.EntityFramework;
+﻿using JobEntryy.Application.Abstracts.Services.Dapper;
+using JobEntryy.Application.Abstracts.Services.EntityFramework;
+using JobEntryy.Persistence.Services.Dapper;
 using JobEntryy.Persistence.Services.EntityFramework;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,6 +18,8 @@ namespace JobEntryy.Persistence.Registration
 
             services.AddScoped<IExperienceReadRepository,ExperienceReadRepository>();
             services.AddScoped<IExperienceWriteRepository,ExperienceWriteRepository>();
+            services.AddScoped<IExperienceReadDapper, ExperienceReadDapper>();
+            services.AddScoped<IExperienceWriteDapper,ExperienceWriteDapper>();
 
             services.AddScoped<IIndustryReadRepository,IndustryReadRepository>();
             services.AddScoped<IIndustryWriteRepository,IndustryWriteRepository>();
