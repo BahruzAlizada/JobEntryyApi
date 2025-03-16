@@ -26,6 +26,8 @@ namespace JobEntryy.Persistence.Registration
 
             services.AddScoped<IPackageReadRepository,PackageReadRepository>();
             services.AddScoped<IPackageWriteRepository,PackageWriteRepository>();
+            services.AddScoped<IPackageReadDapper,PackageReadDapper>();
+            services.AddScoped<IPackageWriteDapper, PackageWriteDapper>();
         }
     }
 }
