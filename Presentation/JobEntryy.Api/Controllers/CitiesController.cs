@@ -1,6 +1,8 @@
 ﻿using JobEntryy.Application.Features.Commands.City.CreateCity;
 using JobEntryy.Application.Features.Commands.City.DeleteCity;
 using JobEntryy.Application.Features.Commands.City.UpdateCity;
+using JobEntryy.Application.Features.Queries.City.GetCitiesWithCaching;
+using JobEntryy.Application.Features.Queries.City.GetCity;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +18,33 @@ namespace JobEntryy.Api.Controllers
         {
             this.mediator = mediator;
         }
+
+        #region GetCitiesWithPaged
+        [HttpGet("GetCitiesWithPaged")]
+        public async Task<IActionResult> GetCitiesWithPaged([FromQuery] GetCitiesWithCachingQueryRequest request)
+        {
+            GetCitiesWithCachingQueryResponse response = await mediator.Send(request);
+            return Ok(response);
+        }
+        #endregion
+
+        #region GetCitiesWithCaching
+        [HttpGet("GetCitiesWithCaching")]
+        public async Task<IActionResult> GetCitiesWithCaching()
+        {
+            GetCitiesWithCachingQueryResponse response = await mediator.Send(new GetCitiesWithCachingQueryRequest());
+            return Ok(response);
+        }
+        #endregion
+
+        #region GetCity
+        [HttpGet("GetCity")]
+        public async Task<IActionResult> GetCity([FromQuery] GetCityQueryRequest request)
+        {
+            GetCityQueryResponse response = await mediator.Send(request);
+            return Ok(response);
+        }
+        #endregion
 
         #region CreateCity
         [HttpPost("CreateCity")]

@@ -21,4 +21,12 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\Caching\Redis\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\JobEntryy.Application\JobEntryy.Application.csproj" />
+  </ItemGroup>
+
 </Project>

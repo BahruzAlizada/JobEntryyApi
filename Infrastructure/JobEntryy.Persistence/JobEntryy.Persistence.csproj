@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="ServiceContracts\" />
+    <Folder Include="Services\Dapper\Category\" />
   </ItemGroup>
 
   <ItemGroup>

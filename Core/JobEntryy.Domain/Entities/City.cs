@@ -8,4 +8,4 @@ namespace JobEntryy.Domain.Entities
         public ICollection<Job> Jobs { get; set; }
 
     }
-}
+} 

@@ -1,5 +1,6 @@
 using JobEntryy.Application.Registration;
 using JobEntryy.Domain.Identity;
+using JobEntryy.Infrastructure.Registration;
 using JobEntryy.Persistence.Concrete;
 using JobEntryy.Persistence.Registration;
 using Microsoft.AspNetCore.Identity;
@@ -14,6 +15,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructureServices();
 builder.Services.AddPersistenceServices();
 
 builder.Services.AddIdentity<AppUser, AppRole>(Identityoptions =>
