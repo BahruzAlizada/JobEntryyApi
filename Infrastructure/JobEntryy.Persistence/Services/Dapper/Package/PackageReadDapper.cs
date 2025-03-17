@@ -15,7 +15,7 @@ namespace JobEntryy.Persistence.Services.Dapper
 
         public async Task<List<PackageAllDto>> GetAllPackages()
         {
-            var query = "SELECT * FROM Packages";
+            var query = "SELECT Id, Name, PremiumJobCount, Price, Created, Updated  FROM Packages";
             var packages = await connection.QueryAsync<PackageAllDto>(query);
             return packages.AsList();
         }

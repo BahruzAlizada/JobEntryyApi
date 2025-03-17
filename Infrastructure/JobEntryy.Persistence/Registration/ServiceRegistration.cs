@@ -12,9 +12,13 @@ namespace JobEntryy.Persistence.Registration
         {
             services.AddScoped<ICategoryReadRepository,CategoryReadRepository>();
             services.AddScoped<ICategoryWriteRepository,CategoryWriteRepository>();
+            services.AddScoped<ICategoryReadDapper,CategoryReadDapper>();
+            services.AddScoped<ICategoryWriteDapper,CategoryWriteDapper>();
 
             services.AddScoped<ICityReadRepository,CityReadRepository>();
             services.AddScoped<ICityWriteRepository,CityWriteRepository>();
+            services.AddScoped<ICityReadDapper,CityReadDapper>();
+            services.AddScoped<ICityWriteDapper, CityWriteDapper>();
 
             services.AddScoped<IExperienceReadRepository,ExperienceReadRepository>();
             services.AddScoped<IExperienceWriteRepository,ExperienceWriteRepository>();
@@ -23,6 +27,9 @@ namespace JobEntryy.Persistence.Registration
 
             services.AddScoped<IIndustryReadRepository,IndustryReadRepository>();
             services.AddScoped<IIndustryWriteRepository,IndustryWriteRepository>();
+
+            services.AddScoped<IJobReadRepository,JobReadRepository>();
+            services.AddScoped<IJobWriteRepository,JobWriteRepository>();
 
             services.AddScoped<IPackageReadRepository,PackageReadRepository>();
             services.AddScoped<IPackageWriteRepository,PackageWriteRepository>();

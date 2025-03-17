@@ -1,6 +1,10 @@
 ﻿using JobEntryy.Application.Features.Commands.Category.CreateCategory;
 using JobEntryy.Application.Features.Commands.Category.DeleteCategory;
 using JobEntryy.Application.Features.Commands.Category.UpdateCategory;
+using JobEntryy.Application.Features.Queries.Category.GetAllCategories;
+using JobEntryy.Application.Features.Queries.Category.GetCachedCategoriesWithJobCount;
+using JobEntryy.Application.Features.Queries.Category.GetCategoriesWithCaching;
+using JobEntryy.Application.Features.Queries.Category.GetCategory;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +20,42 @@ namespace JobEntryy.Api.Controllers
         {
             this.mediator = mediator;
         }
+
+        #region GetAllCategories
+        [HttpGet("GetAllCategories")]
+        public async Task<IActionResult> GetAllCategories()
+        {
+            GetAllCategoriesQueryResponse response = await mediator.Send(new GetAllCategoriesQueryRequest());
+            return Ok(response);
+        }
+        #endregion
+
+        #region GetCachedCategoriesWithJobCount
+        [HttpGet("GetCachedCategoriesWithJobCount")]
+        public async Task<IActionResult> GetCachedCategoriesWithJobCount()
+        {
+            GetCachedCategoriesWithJobCountQueryResponse response = await mediator.Send(new GetCachedCategoriesWithJobCountQueryRequest());
+            return Ok(response);
+        }
+        #endregion
+
+        #region GetCategoriesWithCaching
+        [HttpGet("GetCategoriesWithCaching")]
+        public async Task<IActionResult> GetCategoriesWithCaching()
+        {
+            GetCategoriesWithCachingQueryResponse response = await mediator.Send(new GetCategoriesWithCachingQueryRequest());
+            return Ok(response);
+        }
+        #endregion
+
+        #region GetCategory
+        [HttpGet("GetCategory")]
+        public async Task<IActionResult> GetCategory([FromQuery] GetCategoryQueryRequest request)
+        {
+            GetCategoryQueryResponse response = await mediator.Send(request);
+            return Ok(response);
+        }
+        #endregion
 
         #region CreateCategory
         [HttpPost("CreateCategory")]

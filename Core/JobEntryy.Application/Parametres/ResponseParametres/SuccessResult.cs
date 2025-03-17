@@ -1,4 +1,5 @@
-﻿namespace JobEntryy.Application.Parametres.ResponseParametres
+﻿
+namespace JobEntryy.Application.Parametres.ResponseParametres
 {
     public class SuccessResult : Result
     {
@@ -13,5 +14,9 @@
             return new SuccessResult(message);
         }
 
+        internal static Result Create(object messsages)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

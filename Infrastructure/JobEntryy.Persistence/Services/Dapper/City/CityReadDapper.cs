@@ -23,15 +23,13 @@ namespace JobEntryy.Persistence.Services.Dapper
         public async Task<List<CityDto>> GetCitiesWithCaching()
         {
             var cities = cacheService.Get<List<CityDto>>(CacheKey.Cities);
-            if (cities == null)
+            if (cities == null || !cities.Any())
             {
                 var query = "SELECT Id, Name FROM Cities WHERE Status = 1 ORDER BY Name";
                 cities = (await connection.QueryAsync<CityDto>(query)).AsList();
 
-
                 cacheService.Set<List<CityDto>>(CacheKey.Cities, cities, 4, 12, CacheItemPriority.High);
             }
-
             return cities;
         }
 
@@ -40,7 +38,7 @@ namespace JobEntryy.Persistence.Services.Dapper
             var totalCountQuery = "SELECT COUNT(*) FROM Cities";
             var totalCount = await connection.ExecuteScalarAsync<int>(totalCountQuery);
 
-            var query = @"SELECT * FROM Cities ORDER BY Name OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY";
+            var query = @"SELECT Id, Name, Status FROM Cities ORDER BY Name OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY";
 
             var cities = await connection.QueryAsync<CityAllDto>(query, new
             {
