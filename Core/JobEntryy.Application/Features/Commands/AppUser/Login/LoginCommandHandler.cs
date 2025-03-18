@@ -1,9 +1,12 @@
-﻿using JobEntryy.Application.Constants;
+﻿using JobEntryy.Application.Abstracts;
+using JobEntryy.Application.Constants;
+using JobEntryy.Application.DTOs;
 using JobEntryy.Application.Exceptions;
 using JobEntryy.Application.Parametres.ResponseParametres;
 using JobEntryy.Domain.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 
 namespace JobEntryy.Application.Features.Commands.AppUser.Login
 {
@@ -11,10 +14,12 @@ namespace JobEntryy.Application.Features.Commands.AppUser.Login
     {
         private readonly UserManager<Domain.Identity.AppUser> userManager;
         private readonly SignInManager<Domain.Identity.AppUser> signInManager;
-        public LoginCommandHandler(UserManager<Domain.Identity.AppUser> userManager, SignInManager<Domain.Identity.AppUser> signInManager)
+        private readonly ITokenHandler tokenHandler;
+        public LoginCommandHandler(UserManager<Domain.Identity.AppUser> userManager, SignInManager<Domain.Identity.AppUser> signInManager, ITokenHandler tokenHandler)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.tokenHandler = tokenHandler;
         }
 
 
@@ -26,7 +31,13 @@ namespace JobEntryy.Application.Features.Commands.AppUser.Login
             var result = await signInManager.PasswordSignInAsync(user, request.Password,true,true);
             if (!result.Succeeded) return new() { Result = ErrorResult.Create("Fail when Login Account") };
 
-            return new() { Result = SuccessResult.Create(Messages.SuccessLogin) };
+            TokenDto tokenDto = tokenHandler.CreateAccessToken(5);
+            user.RefreshToken = tokenDto.RefreshToken;
+            user.RefreshTokenEndDate = tokenDto.Expiration.AddMinutes(30);
+
+            await userManager.UpdateAsync(user);
+
+            return new() { Token = tokenDto, Result = SuccessResult.Create(Messages.SuccessLogin) };
         }
     }
 }

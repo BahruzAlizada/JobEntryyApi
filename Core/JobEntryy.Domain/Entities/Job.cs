@@ -52,6 +52,9 @@ namespace JobEntryy.Domain.Entities
             PremiumDate = null;
         }
 
+        public void ChangeJobName(string newName) => Name = newName;
+        public void ChangeJobSalary(int salary, bool isSalaryHidden)=>JobSalary.Create(isSalaryHidden, salary); 
+
 
     }
 }

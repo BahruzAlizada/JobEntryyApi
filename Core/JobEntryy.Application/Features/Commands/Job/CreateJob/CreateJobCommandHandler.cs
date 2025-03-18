@@ -39,8 +39,14 @@ namespace JobEntryy.Application.Features.Commands.Job.CreateJob
                 await jobRuleService.CheckCategory(request.CategoryId),
                 await jobRuleService.CheckCity(request.CityId),
                 await jobRuleService.CheckExperience(request.ExperienceId),
-                jobRuleService.CheckJobApplicationInfo(request.Email,request.Link),
-                jobRuleService.CheckJobSalary(request.IsSalaryHidden,request.Salary)
+                await jobRuleService.CheckDuplicateJob(request.UserId, request.CategoryId, request.ExperienceId, request.Name),
+                await jobRuleService.CheckDailyJobLimit(request.UserId),
+                jobRuleService.CheckJobTitle(request.Name),
+                jobRuleService.CheckJobApplicationInfo(request.Email, request.Link),
+                jobRuleService.CheckJobSalary(request.IsSalaryHidden, request.Salary),
+                jobRuleService.CheckJobResponsibilities(request.Responsibilities),
+                jobRuleService.CheckJobRequiredSkills(request.RequiredSkills),
+                jobRuleService.CheckJobLink(request.Link)
             );
 
             return result;

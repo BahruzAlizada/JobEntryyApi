@@ -1,4 +1,6 @@
-﻿using JobEntryy.Application.Abstracts.Caching;
+﻿using JobEntryy.Application.Abstracts;
+using JobEntryy.Application.Abstracts.Caching;
+using JobEntryy.Infrastructure.Services;
 using JobEntryy.Infrastructure.Services.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +13,7 @@ namespace JobEntryy.Infrastructure.Registration
             services.AddMemoryCache();
 
             services.AddScoped<ICacheService,MemoryCacheService>();
+            services.AddScoped<ITokenHandler, TokenHandler>();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace JobEntryy.Application.Features.Commands.Package.CreatePackage
             await packageWriteRepository.AddAndSaveAsync(package);
             return new() { Result = SuccessResult.Create(Messages.SuccessAdded) };
         }
-
+         
 
 
         private Result CheckBusinessRules(CreatePackageCommandRequest request)
