@@ -1,9 +1,11 @@
 using System.Text;
+using JobEntryy.Api.Extensions;
 using JobEntryy.Application.Registration;
 using JobEntryy.Domain.Identity;
 using JobEntryy.Infrastructure.Registration;
 using JobEntryy.Persistence.Concrete;
 using JobEntryy.Persistence.Registration;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -20,6 +22,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
 builder.Services.AddPersistenceServices();
+
 
 builder.Services.AddIdentity<AppUser, AppRole>(Identityoptions =>
 {
@@ -59,6 +62,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.ConfigureExceptionHandler<Program>(app.Services.GetRequiredService<ILogger<Program>>());
+
 
 app.UseHttpsRedirection();
 

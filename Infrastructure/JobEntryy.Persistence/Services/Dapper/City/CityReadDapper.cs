@@ -1,4 +1,5 @@
-﻿using System.Data.Common;
+﻿using System.Data;
+using System.Data.Common;
 using Dapper;
 using JobEntryy.Application.Abstracts.Caching;
 using JobEntryy.Application.Abstracts.Services.Dapper;

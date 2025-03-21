@@ -1,13 +1,16 @@
-﻿using JobEntryy.Application.Features.Commands.Category.CreateCategory;
+﻿using JobEntryy.Application.Abstracts.Services.EntityFramework;
+using JobEntryy.Application.Features.Commands.Category.CreateCategory;
 using JobEntryy.Application.Features.Commands.Category.DeleteCategory;
 using JobEntryy.Application.Features.Commands.Category.UpdateCategory;
 using JobEntryy.Application.Features.Queries.Category.GetAllCategories;
 using JobEntryy.Application.Features.Queries.Category.GetCachedCategoriesWithJobCount;
 using JobEntryy.Application.Features.Queries.Category.GetCategoriesWithCaching;
 using JobEntryy.Application.Features.Queries.Category.GetCategory;
+using JobEntryy.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobEntryy.Api.Controllers
 {

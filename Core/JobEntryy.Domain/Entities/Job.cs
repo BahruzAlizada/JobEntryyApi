@@ -1,4 +1,5 @@
-﻿using JobEntryy.Domain.Common;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using JobEntryy.Domain.Common;
 using JobEntryy.Domain.Enums;
 using JobEntryy.Domain.Identity;
 using JobEntryy.Domain.ValueObjects;
@@ -8,6 +9,7 @@ namespace JobEntryy.Domain.Entities
     public class Job : AuditBaseEntity
     {
         public string Name { get; set; }
+        [NotMapped]
         public JobSalary Salary { get; set; }
 
         public DateTime Deadline { get; set; } = DateTime.UtcNow.AddDays(30);

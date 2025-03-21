@@ -7,6 +7,7 @@ using JobEntryy.Domain.ValueObjects;
 using JobEntryy.Persistence.Concrete;
 using JobEntryy.Persistence.Repositories;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobEntryy.Persistence.Services.EntityFramework;
 
@@ -72,6 +73,31 @@ public class JobWriteRepository : WriteRepository<Job>, IJobWriteRepository
         {
             await transaction.RollbackAsync();
             throw new Exception("Error occured while job created" + ex.Message);
+        }
+    }
+
+    public async Task SetJobPremium(Guid userId, Guid jobId)
+    {
+        using var transaction = await context.Database.BeginTransactionAsync();
+        try
+        {
+            AppUser user = await userManager.FindByIdAsync(userId.ToString()) ?? throw new UserNotFoundException();
+            Job job = await context.Jobs.FindAsync(jobId) ?? throw new Exception("Job not found");
+            UserPackage userPackage = await context.UserPackages.FirstOrDefaultAsync(x => x.UserId == userId) ?? throw new Exception("User's package is empty");
+
+            job.SetJobPremium();
+            userPackage.UsePackage();
+
+            if (userPackage.RemainingPremiumJobCount == 0) 
+                context.UserPackages.Remove(userPackage);
+
+            await context.SaveChangesAsync();
+            await transaction.CommitAsync();
+        }
+        catch (Exception ex)
+        {
+            await transaction.RollbackAsync();
+            throw new Exception("Error occured while job set premium" + ex.Message);
         }
     }
 }

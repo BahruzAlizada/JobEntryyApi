@@ -14,6 +14,7 @@ namespace JobEntryy.Infrastructure.Registration
 
             services.AddScoped<ICacheService,MemoryCacheService>();
             services.AddScoped<ITokenHandler, TokenHandler>();
+            services.AddScoped<IPaymentService, PaymentService>();
         }
     }
 }

@@ -1,8 +1,11 @@
-﻿using JobEntryy.Application.Abstracts.Services.Dapper;
+﻿using System.Data.Common;
+using JobEntryy.Application.Abstracts.Services.Dapper;
 using JobEntryy.Application.Abstracts.Services.EntityFramework;
+using JobEntryy.Persistence.Concrete;
 using JobEntryy.Persistence.Services.Dapper;
 using JobEntryy.Persistence.Services.EntityFramework;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Data.SqlClient;
 
 namespace JobEntryy.Persistence.Registration
 {
@@ -10,6 +13,10 @@ namespace JobEntryy.Persistence.Registration
     {
         public static void AddPersistenceServices(this IServiceCollection services)
         {
+            services.AddDbContext<Context>();
+            services.AddScoped<DbConnection>(provider => new SqlConnection(Context.SqlConnection));
+
+
             services.AddScoped<ICategoryReadRepository,CategoryReadRepository>();
             services.AddScoped<ICategoryWriteRepository,CategoryWriteRepository>();
             services.AddScoped<ICategoryReadDapper,CategoryReadDapper>();
@@ -38,6 +45,9 @@ namespace JobEntryy.Persistence.Registration
             services.AddScoped<IPackageWriteRepository,PackageWriteRepository>();
             services.AddScoped<IPackageReadDapper,PackageReadDapper>();
             services.AddScoped<IPackageWriteDapper, PackageWriteDapper>();
+
+            services.AddScoped<ICompanyReadRepository,CompanyReadRepository>();
+            services.AddScoped<ICompanyWriteRepository,CompanyWriteRepository>();
         }
     }
 }

@@ -16,5 +16,12 @@ namespace JobEntryy.Domain.Entities
         public int RemainingPremiumJobCount { get; set; } 
         public int UsedPremiumJobCount { get; set; }
 
+
+        public void UsePackage()
+        {
+            RemainingPremiumJobCount--;
+            UsedPremiumJobCount++;
+        }
+
     }
 }

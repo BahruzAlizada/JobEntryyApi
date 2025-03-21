@@ -1,5 +1,7 @@
-﻿using JobEntryy.Domain.Entities;
+﻿using System.Reflection.Emit;
+using JobEntryy.Domain.Entities;
 using JobEntryy.Domain.Identity;
+using JobEntryy.Domain.ValueObjects;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,11 +9,13 @@ namespace JobEntryy.Persistence.Concrete
 {
     public class Context : IdentityDbContext<AppUser,AppRole,Guid>
     {
-        public static string SqlConnection = "Server=DESKTOP-DQGN1O7;Database=JobEntryy;Trusted_Connection=SSPI;Encrypt=false;TrustServerCertificate=true;Integrated Security=True;";
+        public static string SqlConnection = "Host=localhost;Port=5432;Username=postgres;Password=1469;Database=JobEntryy;SSL Mode=Prefer;Trust Server Certificate=True;";
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(SqlConnection);
+            optionsBuilder.UseNpgsql(SqlConnection);
         }
+
+    
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<City> Cities { get; set; }
