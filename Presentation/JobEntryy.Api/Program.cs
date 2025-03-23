@@ -1,5 +1,6 @@
 using System.Text;
 using JobEntryy.Api.Extensions;
+using JobEntryy.Application.CustomAttributes;
 using JobEntryy.Application.Registration;
 using JobEntryy.Domain.Identity;
 using JobEntryy.Infrastructure.Registration;
@@ -7,14 +8,18 @@ using JobEntryy.Persistence.Concrete;
 using JobEntryy.Persistence.Registration;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;        
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(opt =>
+{
+    opt.Filters.Add(new MaintenanceModeAttribute(false));
+    opt.Filters.Add(new SleepModeAttribute(0, 6));
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -1,5 +1,8 @@
-﻿using JobEntryy.Application.Features.Commands.Job.CreateJob;
+﻿using JobEntryy.Application.Constants;
+using JobEntryy.Application.CustomAttributes;
+using JobEntryy.Application.Features.Commands.Job.CreateJob;
 using JobEntryy.Application.Features.Commands.Job.DeleteJob;
+using JobEntryy.Application.Features.Commands.Job.RepublishJob;
 using JobEntryy.Application.Features.Commands.Job.SetJobPremium;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -14,7 +17,7 @@ namespace JobEntryy.Api.Controllers
         private readonly IMediator mediator;
         public JobsController(IMediator mediator)
         {
-            this.mediator = mediator;   
+            this.mediator = mediator;
         }
 
 
@@ -41,6 +44,16 @@ namespace JobEntryy.Api.Controllers
         public async Task<IActionResult> DeleteJob([FromQuery] DeleteJobCommandRequest request)
         {
             DeleteJobCommandResponse response = await mediator.Send(request);
+            return Ok(response);
+        }
+        #endregion
+
+        #region RepublishJob
+        [HttpPost("RepublishJob")]
+        [AuthorizeDefinition(ActionType =Domain.Enums.ActionType.Writing,Definition = "Republish Job", Menu = AuthorizeDefinitionConstants.Jobs)]
+        public async Task<IActionResult> RepublishJob([FromQuery] RepublishJobCommandRequest request)
+        {
+            RepublishJobCommandResponse response = await mediator.Send(request);
             return Ok(response);
         }
         #endregion

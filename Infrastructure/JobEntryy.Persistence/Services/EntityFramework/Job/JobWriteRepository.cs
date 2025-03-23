@@ -76,6 +76,18 @@ public class JobWriteRepository : WriteRepository<Job>, IJobWriteRepository
         }
     }
 
+    public async Task RepublishJob(Guid jobId)
+    {
+        Job job = await context.Jobs.FindAsync(jobId) ?? throw new Exception("Job not found");
+        
+        job.Deadline = DateTime.UtcNow.AddMonths(30);
+        if (job.IsPremium)
+            job.SetJobNormal();
+
+        context.Jobs.Update(job);
+        await context.SaveChangesAsync();
+    }
+
     public async Task SetJobPremium(Guid userId, Guid jobId)
     {
         using var transaction = await context.Database.BeginTransactionAsync();

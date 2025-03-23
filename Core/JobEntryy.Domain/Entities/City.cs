@@ -6,6 +6,5 @@ namespace JobEntryy.Domain.Entities
     {
         public string Name { get; set; }
         public ICollection<Job> Jobs { get; set; }
-
     }
 } 
