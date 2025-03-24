@@ -42,6 +42,10 @@ namespace JobEntryy.Domain.Entities
         public Experience Experience { get; set; }
 
 
+
+        public ICollection<JobSpam> Spams { get; set; }
+
+
         public void SetJobPremium()
         {
             PremiumDate = DateTime.UtcNow.AddDays(2);
@@ -57,6 +61,6 @@ namespace JobEntryy.Domain.Entities
         public void ChangeJobName(string newName) => Name = newName;
         public void ChangeJobSalary(int salary, bool isSalaryHidden)=>JobSalary.Create(isSalaryHidden, salary); 
 
-
+         
     }
 }

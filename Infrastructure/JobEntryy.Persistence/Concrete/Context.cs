@@ -27,5 +27,6 @@ namespace JobEntryy.Persistence.Concrete
         public DbSet<Job> Jobs { get; set; }
         public DbSet<JobDetail> JobDetails { get; set; }
         public DbSet<JobApplicationInfo> JobApplicationInfos { get; set; }
+        public DbSet<JobSpam> JobSpams { get; set; } 
     }
 }

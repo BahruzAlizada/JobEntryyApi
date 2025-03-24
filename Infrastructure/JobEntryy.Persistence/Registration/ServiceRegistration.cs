@@ -39,7 +39,13 @@ namespace JobEntryy.Persistence.Registration
 
             services.AddScoped<IJobReadRepository,JobReadRepository>();
             services.AddScoped<IJobWriteRepository,JobWriteRepository>();
+            services.AddScoped<IJobReadDapper,JobReadDapper>();
             services.AddScoped<IJobWriteDapper,JobWriteDapper>();
+
+            services.AddScoped<IJobSpamReadRepository,JobSpamReadRepository>();
+            services.AddScoped<IJobSpamWriteRepository, JobSpamWriteRepository>();
+            services.AddScoped<IJobSpamReadDapper,JobSpamReadDapper>();
+            services.AddScoped<IJobSpamWriteDapper,JobSpamWriteDapper>();
 
             services.AddScoped<IPackageReadRepository,PackageReadRepository>();
             services.AddScoped<IPackageWriteRepository,PackageWriteRepository>();
