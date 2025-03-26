@@ -37,7 +37,7 @@ namespace JobEntryy.Application.Registration
             services.AddScoped<IJobRuleService, JobRuleService>();
             services.AddScoped<IJobSpamRuleService, JobSpamRuleService>();
             services.AddScoped<IPackageRuleService,PackageRuleService>();
-
+            services.AddScoped<IRoleRuleService, RoleRuleService>();
 
             services.AddValidatorsFromAssemblyContaining<CreateCategoryValidator>();
             services.AddValidatorsFromAssemblyContaining<UpdateCategoryValidator>();
