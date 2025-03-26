@@ -21,7 +21,7 @@ namespace JobEntryy.Application.Features.Commands.JobSpam.CreateJobSpam
         public async Task<CreateJobSpamCommandResponse> Handle(CreateJobSpamCommandRequest request, CancellationToken cancellationToken)
         {
             var result = BusinessRules.Run(jobSpamRuleService.CheckJobSpam(request.JobId, request.ReportedByEmail), jobSpamRuleService.CheckJobSpamDescription(request.SpamDescription));
-            if (!result.Success) return new() { Result = result };
+                 if (!result.Success) return new() { Result = result };
 
             await jobSpamWriteRepository.CreateJobSpam(request);
             return new() { Result = SuccessResult.Create(Messages.SuccessAdded) };

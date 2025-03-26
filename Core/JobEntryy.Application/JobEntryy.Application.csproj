@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="Abstracts\ServiceContracts\" />
     <Folder Include="Features\Commands\Job\UpdateJob\" />
+    <Folder Include="Features\Queries\JobSpam\GetJobSpams\" />
     <Folder Include="Mappers\AutoMapper\" />
     <Folder Include="Mappers\Mapster\" />
     <Folder Include="Parametres\RequestParametres\" />

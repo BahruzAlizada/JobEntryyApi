@@ -6,5 +6,9 @@ namespace JobEntryy.Domain.Entities
     {
         public string Name { get; set; }
         public ICollection<CompanyIndustry> CompanyIndustries { get; set; }
+
+
+
+        public void Update(string newName) => Name = newName;
     }
 }

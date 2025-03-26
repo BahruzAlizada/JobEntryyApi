@@ -35,6 +35,7 @@ namespace JobEntryy.Application.Registration
             services.AddScoped<IExperienceRuleService,ExperienceRuleService>();
             services.AddScoped<IIndustryRuleService,IndustryRuleService>();
             services.AddScoped<IJobRuleService, JobRuleService>();
+            services.AddScoped<IJobSpamRuleService, JobSpamRuleService>();
             services.AddScoped<IPackageRuleService,PackageRuleService>();
 
 
