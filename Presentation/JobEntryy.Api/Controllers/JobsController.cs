@@ -4,6 +4,7 @@ using JobEntryy.Application.Features.Commands.Job.CreateJob;
 using JobEntryy.Application.Features.Commands.Job.DeleteJob;
 using JobEntryy.Application.Features.Commands.Job.RepublishJob;
 using JobEntryy.Application.Features.Commands.Job.SetJobPremium;
+using JobEntryy.Application.Features.Queries.Job.GetJobs;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,14 @@ namespace JobEntryy.Api.Controllers
             this.mediator = mediator;
         }
 
+        #region GetJobs
+        [HttpGet("GetJobs")]
+        public async Task<IActionResult> GetJobs([FromQuery] GetJobsQueryRequest request)
+        {
+            GetJobsQueryResponse response = await mediator.Send(request);
+            return Ok(response);
+        }
+        #endregion
 
         #region CreateJob
         [HttpPost("CreateJob")]

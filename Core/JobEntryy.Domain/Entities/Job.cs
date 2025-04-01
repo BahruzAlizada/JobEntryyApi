@@ -3,6 +3,7 @@ using JobEntryy.Domain.Common;
 using JobEntryy.Domain.Enums;
 using JobEntryy.Domain.Identity;
 using JobEntryy.Domain.ValueObjects;
+using MediatR;
 
 namespace JobEntryy.Domain.Entities
 {
@@ -45,6 +46,26 @@ namespace JobEntryy.Domain.Entities
 
         public ICollection<JobSpam> Spams { get; set; }
 
+
+        
+        public static Job Create(string name, bool isSalaryHidden, int salary, JobType jobType, WorkMode? workMode, EmploymentType? employmentType,
+            EducationLevel? educationLevel, Guid userId, Guid categoryId, Guid? cityId, Guid experienceId)
+        {
+            Job job = new Job
+            {
+                Name = name,
+                Salary = JobSalary.Create(isSalaryHidden, salary),
+                JobType = jobType,
+                WorkMode = workMode,
+                EmploymentType = employmentType,
+                EducationLevel = educationLevel,
+                UserId = userId,
+                CategoryId = categoryId,
+                CityId = cityId,
+                ExperienceId = experienceId,
+            };
+            return job;
+        }
 
         public void SetJobPremium()
         {

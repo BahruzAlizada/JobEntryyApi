@@ -28,39 +28,15 @@ public class JobWriteRepository : WriteRepository<Job>, IJobWriteRepository
 		try
 		{
 			AppUser? user = await userManager.FindByIdAsync(request.UserId.ToString()) ?? throw new UserNotFoundException();
-			
-			Job job = new Job
-			{
-				Name = request.Name,
-				Salary = JobSalary.Create(request.IsSalaryHidden, request.Salary),
-				JobType = request.JobType,
-				WorkMode = request.WorkMode,
-				EmploymentType = request.EmploymentType,
-				EducationLevel = request.EducationLevel,
-				UserId = request.UserId,
-				CategoryId = request.CategoryId,
-				CityId = request.CityId,
-				ExperienceId = request.ExperienceId,
-			};
+
+			Job job = Job.Create(request.Name, request.IsSalaryHidden, request.Salary, request.JobType, request.WorkMode, request.EmploymentType,
+				request.EducationLevel, request.UserId, request.CategoryId, request.CityId, request.ExperienceId);
 			await context.Jobs.AddAsync(job);
 
-
-			JobDetail jobDetail = new JobDetail
-			{
-				JobId = job.Id,
-				RequiredSkills = request.RequiredSkills,
-				Responsibilities = request.Responsibilities,
-				JobGraphics = request.JobGraphics,
-			};
+			JobDetail jobDetail = JobDetail.Create(job.Id, request.RequiredSkills, request.Responsibilities, request.JobGraphics);
 			await context.JobDetails.AddAsync(jobDetail);
 
-
-			JobApplicationInfo jobApplicationInfo = new JobApplicationInfo
-			{
-				JobId = job.Id,
-				Email = request.Email,
-				Link = request.Link,
-			};
+			JobApplicationInfo jobApplicationInfo = JobApplicationInfo.Create(job.Id, request.Email, request.Link);
 			await context.JobApplicationInfos.AddAsync(jobApplicationInfo);
 
 			user.IncreaseJobCount();
