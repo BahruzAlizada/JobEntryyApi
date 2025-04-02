@@ -79,6 +79,15 @@ namespace JobEntryy.Domain.Entities
             PremiumDate = null;
         }
 
+        public void RepublishJob()
+        {
+            Created = DateTime.UtcNow.AddHours(4);
+            Deadline = DateTime.UtcNow.AddDays(30);
+
+            IsPremium = false;
+            PremiumDate = null;
+        }
+
         public void ChangeJobName(string newName) => Name = newName;
         public void ChangeJobSalary(int salary, bool isSalaryHidden)=>JobSalary.Create(isSalaryHidden, salary); 
 

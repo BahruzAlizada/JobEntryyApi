@@ -8,6 +8,15 @@ namespace JobEntryy.Domain.Entities
         public ICollection<Job> Jobs { get; set; }
 
 
+
+        public static Experience Create(string name)
+        {
+            Experience experience = new Experience
+            {
+                Name = name
+            };
+            return experience;
+        }
         public void Update(string newName)=> Name = newName;
     }
 }

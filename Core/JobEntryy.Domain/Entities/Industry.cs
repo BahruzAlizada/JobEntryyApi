@@ -9,6 +9,15 @@ namespace JobEntryy.Domain.Entities
 
 
 
+        public static Industry Create(string name)
+        {
+            Industry industry = new Industry
+            {
+                Name = name
+            };
+            return industry;
+        }
+
         public void Update(string newName) => Name = newName;
     }
 }

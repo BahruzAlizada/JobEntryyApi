@@ -6,6 +6,8 @@ using JobEntryy.Persistence.Services.Dapper;
 using JobEntryy.Persistence.Services.EntityFramework;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Data.SqlClient;
+using JobEntryy.Application.Abstracts.ServiceContracts;
+using JobEntryy.Persistence.ServiceContracts;
 
 namespace JobEntryy.Persistence.Registration
 {
@@ -15,6 +17,8 @@ namespace JobEntryy.Persistence.Registration
         {
             services.AddDbContext<Context>();
             services.AddScoped<DbConnection>(provider => new SqlConnection(Context.SqlConnection));
+
+            services.AddScoped<IUserService, UserService>();
 
 
             services.AddScoped<ICategoryReadRepository,CategoryReadRepository>();
@@ -54,6 +58,8 @@ namespace JobEntryy.Persistence.Registration
 
             services.AddScoped<ICompanyReadRepository,CompanyReadRepository>();
             services.AddScoped<ICompanyWriteRepository,CompanyWriteRepository>();
+            services.AddScoped<ICompanyReadDapper,CompanyReadDapper>();
+            services.AddScoped<ICompanyWriteDapper, CompanyWriteDapper>();
         }
     }
 }

@@ -3,11 +3,6 @@ using FluentValidation;
 using JobEntryy.Application.Behaviors;
 using JobEntryy.Application.Rules.Abstract;
 using JobEntryy.Application.Rules.Concrete;
-using JobEntryy.Application.Validations.FluentValidation.CategoryValidator;
-using JobEntryy.Application.Validations.FluentValidation.CityValidator;
-using JobEntryy.Application.Validations.FluentValidation.ExperienceValidator;
-using JobEntryy.Application.Validations.FluentValidation.IndustryValidator;
-using JobEntryy.Application.Validations.FluentValidation.PackageValidator;
 using Mapster;
 using MapsterMapper;
 using MediatR;
@@ -30,6 +25,10 @@ namespace JobEntryy.Application.Registration
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
+
+            services.AddValidationServices();
+
+
             services.AddScoped<ICategoryRuleService,CategoryRuleService>();
             services.AddScoped<ICityRuleService,CityRuleService>();
             services.AddScoped<IExperienceRuleService,ExperienceRuleService>();
@@ -38,17 +37,6 @@ namespace JobEntryy.Application.Registration
             services.AddScoped<IJobSpamRuleService, JobSpamRuleService>();
             services.AddScoped<IPackageRuleService,PackageRuleService>();
             services.AddScoped<IRoleRuleService, RoleRuleService>();
-
-            services.AddValidatorsFromAssemblyContaining<CreateCategoryValidator>();
-            services.AddValidatorsFromAssemblyContaining<UpdateCategoryValidator>();
-            services.AddValidatorsFromAssemblyContaining<CreateCityValidator>();
-            services.AddValidatorsFromAssemblyContaining<UpdateCityValidator>();
-            services.AddValidatorsFromAssemblyContaining<CreateExperienceValidator>();
-            services.AddValidatorsFromAssemblyContaining<UpdateExperienceValidator>();
-            services.AddValidatorsFromAssemblyContaining<CreateIndustryValidator>();
-            services.AddValidatorsFromAssemblyContaining<UpdateIndustryValidator>();
-            services.AddValidatorsFromAssemblyContaining<CreatePackageValidator>();
-            services.AddValidatorsFromAssemblyContaining<UpdatePackageValidator>();
         }
     }
 }

@@ -24,7 +24,7 @@ namespace JobEntryy.Application.Features.Commands.Industry.CreateIndustry
             var result = BusinessRules.Run(industryRuleService.CheckNameIfExist(request.Name));
             if(!result.Success) return new() { Result = result };
 
-            Domain.Entities.Industry industry = request.Adapt<Domain.Entities.Industry>();
+            Domain.Entities.Industry industry = Domain.Entities.Industry.Create(request.Name);
             await industryWriteRepository.AddAndSaveAsync(industry);
             return new() { Result = SuccessResult.Create(Messages.SuccessAdded) };
         }

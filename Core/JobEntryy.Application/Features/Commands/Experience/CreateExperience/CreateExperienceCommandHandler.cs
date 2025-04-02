@@ -24,7 +24,7 @@ namespace JobEntryy.Application.Features.Commands.Experience.CreateExperience
             var result = BusinessRules.Run(experienceRuleService.CheckNameIfExist(request.Name));
             if (!result.Success) return new() { Result = result };
 
-            Domain.Entities.Experience experience = request.Adapt<Domain.Entities.Experience>();
+            Domain.Entities.Experience experience = Domain.Entities.Experience.Create(request.Name);
             await experienceWriteRepository.AddAndSaveAsync(experience);
             return new() { Result = SuccessResult.Create(Messages.SuccessAdded) };
         }

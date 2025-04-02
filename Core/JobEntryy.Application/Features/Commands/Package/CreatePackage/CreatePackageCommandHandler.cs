@@ -24,7 +24,7 @@ namespace JobEntryy.Application.Features.Commands.Package.CreatePackage
             var result = CheckBusinessRules(request);
             if (!result.Success) return new() { Result = result };
 
-            Domain.Entities.Package package = request.Adapt<Domain.Entities.Package>();
+            Domain.Entities.Package package = Domain.Entities.Package.Create(request.Name,request.PremiumJobCount, request.Price);
             await packageWriteRepository.AddAndSaveAsync(package);
             return new() { Result = SuccessResult.Create(Messages.SuccessAdded) };
         }

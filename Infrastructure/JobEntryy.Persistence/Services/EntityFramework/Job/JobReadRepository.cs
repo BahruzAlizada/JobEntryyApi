@@ -16,59 +16,74 @@ public class JobReadRepository : ReadRepository<Job>, IJobReadRepository
         this.context = context;
     }
 
-    public async Task<List<JobDto>> GetJobsAsync(JobFilterDto filter)
+    public async Task<decimal?> CalculateCategoryAverageSalary(Guid catId)
     {
-        IQueryable<Job> jobQuery = context.Jobs.Include(x=>x.User).Where(x => x.Status && x.Deadline >= DateTime.UtcNow)
-            .OrderByDescending(x => x.IsPremium).ThenByDescending(x=>x.Created);
-
-        if(!string.IsNullOrEmpty(filter.Search))
-            jobQuery = jobQuery.Where(x => x.Name.Contains(filter.Search));
-
-        if(filter.CompanyId != null)
-            jobQuery = jobQuery.Where(x => x.UserId == filter.CompanyId);
-
-        if (filter.CategoryId!=null)
-            jobQuery = jobQuery.Where(x => x.CategoryId == filter.CategoryId);
-
-        if(filter.CityId != null)
-            jobQuery = jobQuery.Where(x => x.CityId == filter.CityId);
-
-        if (filter.ExperienceId != null)
-            jobQuery = jobQuery.Where(x => x.ExperienceId == filter.ExperienceId);
-
-        if (filter.IndustryId != null)
-            jobQuery = jobQuery.Where(x => x.User.CompanyIndustries.Any(x => x.IndustryId == filter.IndustryId));
-
-        if (filter.JobType != null)
-            jobQuery = jobQuery.Where(x => x.JobType == filter.JobType);
-
-        if(filter.WorkMode != null)
-            jobQuery = jobQuery.Where(x => x.WorkMode == filter.WorkMode);
-
-        if(filter.EmploymentType != null)
-            jobQuery = jobQuery.Where(x => x.EmploymentType == filter.EmploymentType);
-
-        if(filter.EducationLevel != null)
-            jobQuery = jobQuery.Where(x => x.EducationLevel == filter.EducationLevel);
-
-        if (filter.MinSalary != null)
-            jobQuery = jobQuery.Where(x => !x.Salary.IsSalaryHidden && x.Salary.Salary >= filter.MinSalary);
-
-        if (filter.MaxSalary != null)
-            jobQuery = jobQuery.Where(x => !x.Salary.IsSalaryHidden && x.Salary.Salary <= filter.MaxSalary);
-
-        List<JobDto> jobs = await jobQuery.Select(x => new JobDto
-        {
-            Id = x.Id,
-            Name = x.Name,
-            Seen = x.Seen,
-            CompanyName = x.User.Name,
-            CompanyId = x.UserId,
-            CompanyImage = x.User.CompanyImageUrl,
-            Created = x.Created,
-            IsPremium = x.IsPremium,
-        }).Take(35).ToListAsync();
-
-        return jobs;
+        decimal? averageSalary = await context.Jobs.Where(x => x.CategoryId == catId && !x.Salary.IsSalaryHidden && x.Status).
+                                 Select(x => (decimal?)x.Salary.Salary).AverageAsync();
+        return averageSalary;
     }
+
+    public async Task<decimal?> CalculateCompanyAverageSalary(Guid compId)
+    {
+        decimal? averageSalary = await context.Jobs.Where(x => x.UserId == compId && !x.Salary.IsSalaryHidden && x.Status).
+                                 Select(x => (decimal?)x.Salary.Salary).AverageAsync();
+        return averageSalary;
+    }
+
+        public async Task<List<JobDto>> GetJobsAsync(JobFilterDto filter, int take)
+        {       
+            IQueryable<Job> jobQuery = context.Jobs.Include(x=>x.User).Where(x => x.Status && x.Deadline >= DateTime.UtcNow).
+                                       OrderByDescending(x => x.IsPremium).ThenByDescending(x=>x.Created);
+
+            if(!string.IsNullOrEmpty(filter.Search))
+                jobQuery = jobQuery.Where(x => x.Name.Contains(filter.Search));
+
+            if(filter.CompanyId != null)
+                jobQuery = jobQuery.Where(x => x.UserId == filter.CompanyId);
+
+            if (filter.CategoryId!=null)
+                jobQuery = jobQuery.Where(x => x.CategoryId == filter.CategoryId);
+
+            if(filter.CityId != null)
+                jobQuery = jobQuery.Where(x => x.CityId == filter.CityId);
+
+            if (filter.ExperienceId != null)
+                jobQuery = jobQuery.Where(x => x.ExperienceId == filter.ExperienceId);
+
+            if (filter.IndustryId != null)
+                jobQuery = jobQuery.Where(x => x.User.CompanyIndustries.Any(x => x.IndustryId == filter.IndustryId));
+
+            if (filter.JobType != null)
+                jobQuery = jobQuery.Where(x => x.JobType == filter.JobType);
+
+            if(filter.WorkMode != null)
+                jobQuery = jobQuery.Where(x => x.WorkMode == filter.WorkMode);
+
+            if(filter.EmploymentType != null)
+                jobQuery = jobQuery.Where(x => x.EmploymentType == filter.EmploymentType);
+
+            if(filter.EducationLevel != null)
+                jobQuery = jobQuery.Where(x => x.EducationLevel == filter.EducationLevel);
+
+            if (filter.MinSalary != null)
+                jobQuery = jobQuery.Where(x => !x.Salary.IsSalaryHidden && x.Salary.Salary >= filter.MinSalary);
+
+            if (filter.MaxSalary != null)
+                jobQuery = jobQuery.Where(x => !x.Salary.IsSalaryHidden && x.Salary.Salary <= filter.MaxSalary);
+
+
+            List<JobDto> jobs = await jobQuery.Select(x => new JobDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Seen = x.Seen,
+                CompanyName = x.User.Name,
+                CompanyId = x.UserId,
+                CompanyImage = x.User.CompanyImageUrl,
+                Created = x.Created,
+                IsPremium = x.IsPremium,
+            }).Take(take).ToListAsync();
+
+            return jobs;
+        }
 }

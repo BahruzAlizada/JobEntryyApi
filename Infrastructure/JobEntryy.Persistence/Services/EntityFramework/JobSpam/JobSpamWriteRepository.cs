@@ -1,4 +1,5 @@
 ﻿using JobEntryy.Application.Abstracts.Services.EntityFramework;
+using JobEntryy.Application.Exceptions;
 using JobEntryy.Application.Features.Commands.JobSpam.CreateJobSpam;
 using JobEntryy.Domain.Entities;
 using JobEntryy.Persistence.Concrete;
@@ -17,7 +18,7 @@ namespace JobEntryy.Persistence.Services.EntityFramework
 
         public async Task CreateJobSpam(CreateJobSpamCommandRequest request)
         {
-            Job job = await context.Jobs.FindAsync(request.JobId) ?? throw new Exception("Job not found");
+            Job job = await context.Jobs.FindAsync(request.JobId) ?? throw new JobNotFoundException();
 
             JobSpam jobSpam = JobSpam.Create(request.JobId, request.Reason, request.SpamDescription, request.ReportedByEmail);
             await context.JobSpams.AddAsync(jobSpam);

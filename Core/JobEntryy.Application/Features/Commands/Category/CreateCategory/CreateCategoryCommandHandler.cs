@@ -24,7 +24,7 @@ namespace JobEntryy.Application.Features.Commands.Category.CreateCategory
             var result = BusinessRules.Run(categoryRuleService.CheckNameIfExist(request.Name));
             if (!result.Success) return new() { Result = result };
 
-            Domain.Entities.Category category = request.Adapt<Domain.Entities.Category>();
+            Domain.Entities.Category category = Domain.Entities.Category.Create(request.Name);
             await categoryWriteRepository.AddAndSaveAsync(category);
             return new() { Result = SuccessResult.Create(Messages.SuccessAdded) };
         }

@@ -24,7 +24,7 @@ namespace JobEntryy.Application.Features.Commands.City.CreateCity
             var result = BusinessRules.Run(cityRuleService.CheckNameIfExist(request.Name));
             if (!result.Success) return new() { Result = result };
 
-            Domain.Entities.City city = request.Adapt<Domain.Entities.City>();
+            Domain.Entities.City city = Domain.Entities.City.Create(request.Name);
             await cityWriteRepository.AddAndSaveAsync(city);
             return new() { Result = SuccessResult.Create(Messages.SuccessAdded) };
         }

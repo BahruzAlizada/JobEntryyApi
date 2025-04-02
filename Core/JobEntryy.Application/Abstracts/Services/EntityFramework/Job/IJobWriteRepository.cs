@@ -9,5 +9,7 @@ namespace JobEntryy.Application.Abstracts.Services.EntityFramework
         Task CreateJobAsync(CreateJobCommandRequest request);
         Task RepublishJob(Guid jobId);
         Task SetJobPremium(Guid userId, Guid jobId);
+        Task ChangeJobStatusForSpams(Guid jobId);
+
     }
 }

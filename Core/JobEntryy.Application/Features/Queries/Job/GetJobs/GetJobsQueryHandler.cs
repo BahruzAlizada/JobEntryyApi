@@ -17,7 +17,7 @@ namespace JobEntryy.Application.Features.Queries.Job.GetJobs
 
         public async Task<GetJobsQueryResponse> Handle(GetJobsQueryRequest request, CancellationToken cancellationToken)
         {
-            List<JobDto> jobs = await jobReadRepository.GetJobsAsync(request.Filter);
+            List<JobDto> jobs = await jobReadRepository.GetJobsAsync(request.Filter,35);
             return new() { Jobs = jobs, Result = SuccessResult.Create(Messages.SuccessListed) };
         }
     }

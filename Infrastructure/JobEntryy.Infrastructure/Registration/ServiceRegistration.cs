@@ -2,6 +2,7 @@
 using JobEntryy.Application.Abstracts.Caching;
 using JobEntryy.Infrastructure.Services;
 using JobEntryy.Infrastructure.Services.Caching.Memory;
+using JobEntryy.Infrastructure.Services.Payment;
 using Microsoft.Extensions.DependencyInjection;
 using Nest;
 
@@ -18,7 +19,7 @@ namespace JobEntryy.Infrastructure.Registration
 
             services.AddScoped<ICacheService,MemoryCacheService>();
             services.AddScoped<ITokenHandler, TokenHandler>();
-            services.AddScoped<IPaymentService, PaymentService>();
+            //services.AddScoped<IPaymentService, StripePaymentService>();
             services.AddScoped<IApplicationService, ApplicationService>();
         }
     }

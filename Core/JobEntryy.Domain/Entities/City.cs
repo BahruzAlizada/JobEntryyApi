@@ -8,6 +8,14 @@ namespace JobEntryy.Domain.Entities
         public ICollection<Job> Jobs { get; set; }
 
 
+        public static City Create(string name)
+        {
+            City city = new City
+            {
+                Name = name
+            };
+            return city;
+        }
         public void Update(string newName) => Name = newName;
     }
 } 

@@ -3,7 +3,6 @@ using JobEntryy.Application.Exceptions;
 using JobEntryy.Application.Features.Commands.Job.CreateJob;
 using JobEntryy.Domain.Entities;
 using JobEntryy.Domain.Identity;
-using JobEntryy.Domain.ValueObjects;
 using JobEntryy.Persistence.Concrete;
 using JobEntryy.Persistence.Repositories;
 using Microsoft.AspNetCore.Identity;
@@ -21,8 +20,18 @@ public class JobWriteRepository : WriteRepository<Job>, IJobWriteRepository
 		this.userManager = userManager;
 	}
 
+    public async Task ChangeJobStatusForSpams(Guid jobId)
+    {
+        Job job = await context.Jobs.FindAsync(jobId) ?? throw new JobNotFoundException();
+        var count = await context.JobSpams.CountAsync(x=>x.JobId == jobId);
+		if (count > 50)
+			job.Status = false;
 
-	public async Task CreateJobAsync(CreateJobCommandRequest request)
+		context.Jobs.Update(job);
+		await context.SaveChangesAsync();
+    }
+
+    public async Task CreateJobAsync(CreateJobCommandRequest request)
 	{
 		await using var transaction = await context.Database.BeginTransactionAsync();
 		try
@@ -54,11 +63,9 @@ public class JobWriteRepository : WriteRepository<Job>, IJobWriteRepository
 
 	public async Task RepublishJob(Guid jobId)
 	{
-		Job job = await context.Jobs.FindAsync(jobId) ?? throw new Exception("Job not found");
+		Job job = await context.Jobs.FindAsync(jobId) ?? throw new JobNotFoundException();
 		
-		job.Deadline = DateTime.UtcNow.AddMonths(30);
-		if (job.IsPremium)
-			job.SetJobNormal();
+		job.RepublishJob();
 
 		context.Jobs.Update(job);
 		await context.SaveChangesAsync();
@@ -89,5 +96,6 @@ public class JobWriteRepository : WriteRepository<Job>, IJobWriteRepository
 			throw new Exception("Error occured while job set premium" + ex.Message);
 		}
 	}
+	 
 
 }

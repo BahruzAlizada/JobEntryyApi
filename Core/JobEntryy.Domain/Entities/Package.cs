@@ -8,6 +8,17 @@ namespace JobEntryy.Domain.Entities
         public int PremiumJobCount { get; set; }
         public int Price { get; set; }
         
+
+        public static Package Create(string name, int premiumJobCount, int price)
+        {
+            Package package = new Package
+            {
+                Name = name,
+                PremiumJobCount = premiumJobCount,
+                Price = price
+            };
+            return package;
+        }
         public ICollection<UserPackage> UserPackages { get; set; }
     }
 }
