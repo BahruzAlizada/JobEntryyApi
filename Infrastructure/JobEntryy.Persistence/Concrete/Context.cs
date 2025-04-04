@@ -22,11 +22,14 @@ namespace JobEntryy.Persistence.Concrete
         public DbSet<Experience> Experiences { get; set; }
         public DbSet<Industry> Industries { get; set; }
         public DbSet<CompanyIndustry> CompanyIndustries { get; set; }
+        public DbSet<CompanyDetail> CompanyDetails { get; set; }
+        public DbSet<CompanySocialMedia> CompanySocialMedias { get; set; }
         public DbSet<Package> Packages { get; set; }
         public DbSet<UserPackage> UserPackages { get; set; }
         public DbSet<Job> Jobs { get; set; }
         public DbSet<JobDetail> JobDetails { get; set; }
         public DbSet<JobApplicationInfo> JobApplicationInfos { get; set; }
         public DbSet<JobSpam> JobSpams { get; set; } 
+       
     }
 }

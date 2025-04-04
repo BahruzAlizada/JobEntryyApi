@@ -20,7 +20,9 @@ namespace JobEntryy.Domain.Identity
         public string? CompanyImageUrl { get; set; }
         public int? JobCount { get; set; }
 
-        
+        public CompanyDetail Detail { get; set; }
+        public ICollection<CompanySocialMedia> SocialMedias { get; set; }
+
 
         public ICollection<CompanyIndustry> CompanyIndustries { get; set; }
         public ICollection<UserPackage> UserPackages { get; set; }

@@ -60,6 +60,16 @@ namespace JobEntryy.Persistence.Registration
             services.AddScoped<ICompanyWriteRepository,CompanyWriteRepository>();
             services.AddScoped<ICompanyReadDapper,CompanyReadDapper>();
             services.AddScoped<ICompanyWriteDapper, CompanyWriteDapper>();
+
+            services.AddScoped<ICompanyDetailReadRepository, CompanyDetailReadRepository>();
+            services.AddScoped<ICompanyDetailWriteRepository,CompanyDetailWriteRepository>();
+            services.AddScoped<ICompanyDetailReadDapper, CompanyDetailReadDapper>();
+            services.AddScoped<ICompanyDetailWriteDapper,CompanyDetailWriteDapper>();
+
+            services.AddScoped<ICompanySocialMediaReadRepository, CompanySocialMediaReadRepository>();
+            services.AddScoped<ICompanySocialMediaWriteRepository, CompanySocialMediaWriteRepository>();
+            services.AddScoped<ICompanySocialMediaReadDapper, CompanySocialMediaReadDapper>();
+            services.AddScoped<ICompanySocialMediaWriteDapper, CompanySocialMediaWriteDapper>();
         }
     }
 }

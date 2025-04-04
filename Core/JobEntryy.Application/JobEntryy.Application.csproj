@@ -11,6 +11,8 @@
     <Folder Include="Features\Commands\Company\" />
     <Folder Include="Features\Queries\JobSpam\GetJobSpams\" />
     <Folder Include="Features\Queries\Company\" />
+    <Folder Include="BackgroundServices\" />
+    <Folder Include="Features\Queries\CompanySocialMedia\" />
     <Folder Include="Parametres\RequestParametres\" />
   </ItemGroup>
 
